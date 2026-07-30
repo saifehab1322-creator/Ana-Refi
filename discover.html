@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discover Rural Egypt | ANA REFI</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      href="./imges/Screenshot_2026-05-22-22-11-54-080.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link rel="stylesheet" href="./Css/explor.css" />
+    <link rel="stylesheet" href="./Css/style.css" />
+    <link rel="stylesheet" href="./Css/discover.css" />
+  </head>
+
+  <body>
+    <!-- Page Loader -->
+    <div id="pageLoader">
+      <div class="loader"></div>
+    </div>
+
+    <header>
+      <nav>
+        <div class="logo">
+          <img
+            src="./imges/Screenshot_2026-05-22-22-11-54-080.png"
+            alt="ANA REFI"
+            class="logo-img"
+          />
+          ANA <span>REFI</span>
+        </div>
+
+        <div class="menu-toggle" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="nav-container" id="navContainer">
+          <ul class="nav-links">
+            <li><a href="./index.html">HOME</a></li>
+            <li><a href="./explor.html">EXPLORE</a></li>
+            <li><a href="./discover.html" class="active">DISCOVER EGYPT</a></li>
+            <li>
+              <a href="./admin_dashborad.html" id="hostLink">Admin profile</a>
+            </li>
+            <li><a href="./user_deashbord.html" id="userLink">profile</a></li>
+          </ul>
+
+          <div class="auth-buttons">
+            <button class="btn-login" id="loginBtn">
+              <a href="./login.html">Log In</a>
+            </button>
+
+            <button class="btn-signup" id="signupBtn">
+              <a href="./sign.html">Sign Up</a>
+            </button>
+
+            <button class="btn-signup hidden" id="logoutBtn">
+              <a href="./index.html">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                logout
+              </a>
+            </button>
+
+            <button id="themeToggle" class="theme-toggle">
+              <span class="toggle-circle"></span>
+            </button>
+
+            <button id="langToggle"><span>文</span>AR</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="discover-hero">
+      <div class="discover-hero-overlay"></div>
+      <div class="discover-hero-content">
+        <div class="badge">✦ EXPLORE THE WHOLE COUNTRY ✦</div>
+        <h1>Discover <span>Rural Egypt</span></h1>
+        <p>
+          From the oases of Siwa to the shores of the Nile in Aswan — explore
+          every region's stories, crafts, and living traditions, whether or not
+          they're bookable yet.
+        </p>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE MAP -->
+    <section class="discover-map-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="subtitle">✦ EGYPT ON THE MAP</span>
+          <h2 class="main-title">
+            Every Region Has <span class="highlight">a Story</span>
+          </h2>
+          <p class="section-desc">
+            Click any point to learn about the area, its people, and its
+            traditional craft.
+          </p>
+        </div>
+
+        <div id="egyptMap" class="egypt-map"></div>
+      </div>
+    </section>
+
+    <!-- TRENDING DESTINATIONS (REAL DATA) -->
+    <section class="trending-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="subtitle">✦ POWERED BY REAL BOOKINGS</span>
+          <h2 class="main-title">
+            Most <span class="highlight">Visited</span> Places
+          </h2>
+          <p class="section-desc">
+            Ranked live from actual bookings made on ANA REFI.
+          </p>
+        </div>
+
+        <div id="trendingContainer" class="cards-grid">
+          <div class="trending-empty">
+            <p>No bookings yet — be the first to explore a destination!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CRAFTS OF EGYPT -->
+    <section class="crafts-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="subtitle">✦ LIVING HERITAGE</span>
+          <h2 class="main-title">
+            Famous <span class="highlight">Handicrafts</span>
+          </h2>
+          <p class="section-desc">
+            Each region of Egypt carries a craft passed down for generations.
+          </p>
+        </div>
+
+        <div class="crafts-grid" id="craftsContainer"></div>
+      </div>
+    </section>
+
+    <!-- TRAVELER GALLERY -->
+    <section class="gallery-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="subtitle">✦ REAL TRAVELERS</span>
+          <h2 class="main-title">
+            Moments Shared <span class="highlight">by Our Guests</span>
+          </h2>
+          <p class="section-desc">
+            Photos travelers chose to share from their real rural experiences.
+          </p>
+        </div>
+
+        <div id="travelerGallery" class="gallery-grid">
+          <div class="gallery-empty">
+            <p>
+              No shared photos yet. Be the first to share yours after your trip!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ECONOMIC IMPACT -->
+    <section class="impact-section">
+      <div class="impact-container">
+        <div class="section-header light">
+          <span class="subtitle">✦ REAL IMPACT</span>
+          <h2 class="main-title">
+            Supporting Local <span class="highlight">Communities</span>
+          </h2>
+        </div>
+
+        <div class="impact-stats" id="impactStats">
+          <div class="impact-box">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+            <h2 id="impactRevenue">$0</h2>
+            <p>Paid Directly to Hosts</p>
+          </div>
+          <div class="impact-box">
+            <i class="fa-solid fa-house-chimney"></i>
+            <h2 id="impactHosts">0</h2>
+            <p>Local Hosts Supported</p>
+          </div>
+          <div class="impact-box">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <h2 id="impactRegions">0</h2>
+            <p>Regions Reached</p>
+          </div>
+          <div class="impact-box">
+            <i class="fa-solid fa-users"></i>
+            <h2 id="impactTravelers">0</h2>
+            <p>Travelers Hosted</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="cta-container">
+        <h2 class="cta-title">Ready to Explore Rural Egypt?</h2>
+        <p class="cta-text">
+          Book a real experience, or just come back to learn more about the
+          country's hidden regions.
+        </p>
+        <a href="./explor.html" class="cta-button">
+          Browse Experiences <span>&rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-col about">
+          <div class="footer-logo">
+            <span class="logo-icon">A</span>
+            <div><h3>ANA Refi</h3></div>
+          </div>
+          <p class="description">
+            Connecting tourists with authentic rural Egyptian experiences.
+            Supporting local communities through sustainable tourism.
+          </p>
+          <div class="social-links">
+            <a href="#">f</a>
+            <a href="#">📷</a>
+            <a href="#">🐦</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="./explor.html">Explore Places</a></li>
+            <li><a href="./sign.html">Become a Host</a></li>
+            <li><a href="./discover.html">Discover Egypt</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Safety Guidelines</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col contact">
+          <h4>Contact Us</h4>
+          <p>📧 info@anarefi.com</p>
+          <p>📞 +20 123 456 7890</p>
+          <p>📍 Cairo, Egypt</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © 2026 ANA Refi. All rights reserved. Supporting SDG 8 & SDG 11 for
+          sustainable communities.
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="./JavaScript/logout.js"></script>
+    <script src="./JavaScript/lang.js"></script>
+    <script src="./JavaScript/hidden.js"></script>
+    <script src="./JavaScript/discover.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- ANA REFI AI Chatbot Widget -->
+    <link rel="stylesheet" href="./Css/chatbot.css" />
+
+    <button id="chatbotToggle">
+      <i class="fa-solid fa-comment-dots chat-icon"></i>
+      <i class="fa-solid fa-xmark close-icon"></i>
+      <span class="chat-badge">AI</span>
+    </button>
+
+    <div id="chatbotWindow">
+      <div class="chatbot-header">
+        <div class="chatbot-avatar">🌿</div>
+        <div class="chatbot-title">
+          <strong>Refi Assistant</strong>
+          <span><span class="status-dot"></span>Online</span>
+        </div>
+      </div>
+
+      <div class="chatbot-messages" id="chatbotMessages"></div>
+
+      <div class="chatbot-suggestions" id="chatbotSuggestions"></div>
+
+      <div class="chatbot-input">
+        <input
+          type="text"
+          id="chatbotInput"
+          placeholder="Ask about experiences, regions, crafts..."
+        />
+        <button id="chatbotSend">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="./JavaScript/chatbot.js"></script>
+  </body>
+</html>

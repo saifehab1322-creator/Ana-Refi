@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard – ABA REFI</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="./imges/Screenshot_2026-05-22-22-11-54-080.png"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="./Css/admin.css" />
+  </head>
+  <body>
+    <!-- =========================
+     GLOBAL SKELETON LOADER
+========================= -->
+    <div id="pageLoader">
+      <!-- NAVBAR -->
+      <div class="sk-navbar">
+        <div class="sk-logo shimmer"></div>
+
+        <div class="sk-nav-links">
+          <div class="sk-link shimmer"></div>
+          <div class="sk-link shimmer"></div>
+          <div class="sk-link shimmer"></div>
+          <div class="sk-link shimmer"></div>
+        </div>
+
+        <div class="sk-user shimmer"></div>
+      </div>
+
+      <!-- MAIN -->
+      <div class="sk-layout">
+        <!-- SIDEBAR -->
+        <div class="sk-sidebar">
+          <div class="sk-avatar shimmer"></div>
+          <div class="sk-side-line shimmer"></div>
+          <div class="sk-side-line shimmer"></div>
+
+          <div class="sk-menu shimmer"></div>
+          <div class="sk-menu shimmer"></div>
+          <div class="sk-menu shimmer"></div>
+          <div class="sk-menu shimmer"></div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="sk-content">
+          <!-- HEADER -->
+          <div class="sk-header">
+            <div>
+              <div class="sk-title shimmer"></div>
+              <div class="sk-sub shimmer"></div>
+            </div>
+
+            <div class="sk-btn shimmer"></div>
+          </div>
+
+          <!-- STATS -->
+          <div class="sk-stats">
+            <div class="sk-card shimmer"></div>
+            <div class="sk-card shimmer"></div>
+            <div class="sk-card shimmer"></div>
+            <div class="sk-card shimmer"></div>
+          </div>
+
+          <!-- CALENDAR -->
+          <div class="sk-calendar shimmer"></div>
+
+          <!-- TABLE -->
+          <div class="sk-table">
+            <div class="sk-table-title shimmer"></div>
+
+            <div class="sk-row shimmer"></div>
+            <div class="sk-row shimmer"></div>
+            <div class="sk-row shimmer"></div>
+            <div class="sk-row shimmer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ─── Navbar ─── -->
+    <nav class="navbar d-flex align-items-center justify-content-between">
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <div class="nav-logo">
+        <img
+          src="./imges/Screenshot_2026-05-22-22-11-54-080.png"
+          alt="ANA REFI"
+          class="logo-img"
+        />
+        <span>ANA</span> REFI
+      </div>
+
+      <ul class="nav-links mb-0">
+        <li><a href="./index.html">HOME</a></li>
+        <li><a href="./explor.html">EXPLORE</a></li>
+        <li><a href="./discover.html">DISCOVER EGYPT</a></li>
+        <li>
+          <a href="./admin_dashborad.html" class="active" id="hostLink"
+            >ADMIN PROFILE</a
+          >
+        </li>
+        <li>
+          <a href="./user_deashbord.html" id="userLink">User Dashboard</a>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <a href="#" style="text-decoration: none; color: #666; font-size: 13px"
+          >⚙ Admin</a
+        >
+        <button class="logout-btn">
+          <a href="./index.html"
+            ><i class="fa-solid fa-right-from-bracket"></i>Log Out</a
+          >
+        </button>
+      </div>
+    </nav>
+
+    <!-- ─── Dashboard ─── -->
+    <div class="dashboard-wrapper">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="admin-info">
+          <div class="admin-avatar">A</div>
+          <h3 class="sidebar-name">Host Panel</h3>
+          <p class="sidebar-email">admin@verdant.io</p>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="#" class="active">📊 Dashboard</a>
+          <a href="#table">🌿 Products</a>
+          <a href="#bookkk">📅 Bookings</a>
+          <a href="#">📈 Analytics</a>
+        </nav>
+      </aside>
+
+      <!-- Main -->
+      <main class="main-content">
+        <div class="content-header">
+          <div>
+            <h1>Host <span>Dashboard</span></h1>
+            <p>Manage all products, bookings, and users.</p>
+          </div>
+          <!-- زر Add Product يفتح الـ Modal -->
+          <button class="add-btn" onclick="openModal()">+ Add Product</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="icon">🌿</div>
+            <h2 id="totalProducts">0</h2>
+            <p>Total Products</p>
+          </div>
+          <div class="stat-card">
+            <div class="icon">📅</div>
+            <h2 id="totalBookings">0</h2>
+            <p>Bookings</p>
+          </div>
+          <div class="stat-card">
+            <div class="icon">👥</div>
+            <h2 id="totalUsers">0</h2>
+            <p>Users</p>
+          </div>
+          <div class="stat-card">
+            <div class="icon">💰</div>
+            <h2 id="totalRevenue">$0</h2>
+            <p>Revenue</p>
+          </div>
+        </div>
+
+        <div class="calendar-box">
+          <div class="calendar-header">
+            <button class="month-btn" onclick="prevMonth()">◀</button>
+
+            <h2 id="calendarMonth">June 2026</h2>
+
+            <button class="month-btn" onclick="nextMonth()">▶</button>
+          </div>
+
+          <div class="week-days">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+          </div>
+
+          <div id="calendarDays" class="calendar-grid"></div>
+        </div>
+
+        <!-- Products Table -->
+        <div class="table-container">
+          <h2 id="table">🌿 All Products</h2>
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th>PRODUCT</th>
+                <th>CATEGORY</th>
+                <th>PRICE</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="productBody">
+              <tr>
+                <td>
+                  <div class="prod-info">
+                    <div class="prod-icon">🦋</div>
+                    <div>
+                      <div class="prod-name">Butterfly Forest Walk</div>
+                      <div class="prod-loc">Costa Rica</div>
+                    </div>
+                  </div>
+                </td>
+                <td>Eco Tour</td>
+                <td>$75/night</td>
+                <td><span class="badge-active">Active</span></td>
+                <td>
+                  <button class="btn-edit">Edit</button
+                  ><button class="btn-delete">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="prod-info">
+                    <div class="prod-icon">🐑</div>
+                    <div>
+                      <div class="prod-name">Highlands Sheep Farm</div>
+                      <div class="prod-loc">Scotland</div>
+                    </div>
+                  </div>
+                </td>
+                <td>Farm Stay</td>
+                <td>$120/night</td>
+                <td><span class="badge-draft">Draft</span></td>
+                <td>
+                  <button class="btn-edit">Edit</button
+                  ><button class="btn-delete">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-container ppp">
+          <h2>📅 Bookings</h2>
+
+          <table class="products-table" id="bookkk">
+            <thead>
+              <tr>
+                <th>PRODUCT</th>
+                <th>LOCATION</th>
+                <th>PRICE</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+
+            <tbody id="bookingBody"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+     ADD NEW PRODUCT MODAL
+══════════════════════════════════════════ -->
+    <div
+      class="modal-overlay"
+      id="productModal"
+      onclick="handleOverlayClick(event)"
+    >
+      <div class="modal-card" id="modalCard">
+        <button class="modal-close" onclick="closeModal()" title="Close">
+          ✕
+        </button>
+
+        <h2 class="modal-title">Add New <span>Product</span></h2>
+
+        <!-- Product Name -->
+        <div class="mb-form">
+          <label class="form-label-custom">Product Name</label>
+          <input
+            type="text"
+            class="form-control-custom"
+            placeholder="e.g. Lavender Hills Farm Stay"
+            id="name"
+          />
+        </div>
+
+        <!-- Category + Price -->
+        <div class="form-row mb-form">
+          <div>
+            <label class="form-label-custom">Category</label>
+            <select class="form-control-custom" id="pCategory">
+              <option value="FarmStay">Farm Stay</option>
+              <option value="EcoTour">Eco Tour</option>
+              <option value="Hiking">Hiking</option>
+              <option value="Glamping">Glamping</option>
+              <option value="CulturalExperience">Cultural Experience</option>
+              <option value="Safari">Wildlife Safari</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label-custom">Price / Night ($)</label>
+            <input
+              type="number"
+              class="form-control-custom"
+              placeholder="89"
+              id="price"
+            />
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-form">
+          <label class="form-label-custom">Location</label>
+          <input
+            type="text"
+            class="form-control-custom"
+            placeholder="Tuscany, Italy"
+            id="location"
+          />
+        </div>
+
+        <!-- Description -->
+        <div class="mb-form">
+          <label class="form-label-custom">Description</label>
+          <textarea
+            class="form-control-custom"
+            placeholder="Describe the experience..."
+            id="desc"
+          ></textarea>
+        </div>
+        <div class="mb-form">
+          <label class="form-label-custom"
+            >Product Images (You can select multiple images)</label
+          >
+          <input type="file" id="image" multiple accept="image/*" />
+        </div>
+
+        <button class="publish-btn" onclick="addProduct()">
+          Publish Product
+        </button>
+      </div>
+    </div>
+    <!-- ───────── BOOKINGS MODAL ───────── -->
+
+    <div class="booking-modal" id="bookingModal">
+      <div class="booking-modal-content">
+        <div class="booking-modal-header">
+          <h2 id="selectedDateTitle">📅 Day Bookings</h2>
+
+          <button class="close-booking-modal" onclick="closeBookingModal()">
+            ✕
+          </button>
+        </div>
+
+        <div id="dayBookingsContainer" class="booking-list"></div>
+      </div>
+    </div>
+    <!-- ═══════════════════════════════════════
+     AI CHAT BOT
+═══════════════════════════════════════ -->
+    <button id="chatBtn" class="chat-toggle-btn">
+      <i class="fa-solid fa-robot"></i>
+    </button>
+    <div class="chatbot-box">
+      <div class="chatbot-header">
+        <i class="fa-solid fa-robot"></i> Smart Admin Assistant
+
+        <button class="chat-close-btn" onclick="closeChat()">✕</button>
+      </div>
+
+      <div class="chatbot-body" id="chatMessages">
+        <div class="bot-msg">
+          Hello Admin 👋<br />
+          Send the product name to search
+        </div>
+      </div>
+
+      <div class="chatbot-input-area">
+        <input
+          type="text"
+          id="chatInput"
+          placeholder="Search name product..."
+        />
+
+        <button onclick="sendChat()">Send</button>
+      </div>
+    </div>
+
+    <!-- RESULT MODAL -->
+
+    <div class="chat-result-modal" id="chatResultModal">
+      <div class="chat-result-content">
+        <div class="chat-result-header">
+          <h3>🔍 Search Result</h3>
+
+          <button onclick="closeChatModal()">✕</button>
+        </div>
+
+        <div id="chatResultBody"></div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="./JavaScript/lang.js"></script>
+    <script src="./JavaScript/products.js"></script>
+    <script src="./JavaScript/admin.js"></script>
+    <script src="./JavaScript/hidden.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- ANA REFI AI Chatbot Widget -->
+    <link rel="stylesheet" href="./Css/chatbot.css" />
+
+    <button id="chatbotToggle">
+      <i class="fa-solid fa-comment-dots chat-icon"></i>
+      <i class="fa-solid fa-xmark close-icon"></i>
+      <span class="chat-badge">AI</span>
+    </button>
+
+    <div id="chatbotWindow">
+      <div class="chatbot-header">
+        <div class="chatbot-avatar">🌿</div>
+        <div class="chatbot-title">
+          <strong>Refi Assistant</strong>
+          <span><span class="status-dot"></span>Online</span>
+        </div>
+      </div>
+
+      <div class="chatbot-messages" id="chatbotMessages"></div>
+
+      <div class="chatbot-suggestions" id="chatbotSuggestions"></div>
+
+      <div class="chatbot-input">
+        <input
+          type="text"
+          id="chatbotInput"
+          placeholder="Ask about experiences, regions, crafts..."
+        />
+        <button id="chatbotSend">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="./JavaScript/chatbot.js"></script>
+  </body>
+</html>

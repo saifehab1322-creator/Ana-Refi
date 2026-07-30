@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking</title>
+  <link rel="icon" href="./imges/Screenshot_2026-05-22-22-11-54-080.png" type="image/png">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="./Css/booking.css">
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+<body>
+  <div id="pageLoader">
+    <div class="loader-container">
+      <div class="loader-top">
+        <div class="skeleton close-btn"></div>
+      </div>
+
+      <div class="loader-grid">
+        <div class="loader-left">
+          <div class="skeleton skeleton-image"></div>
+          <div class="skeleton-card">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="tags">
+              <div class="skeleton skeleton-tag"></div>
+              <div class="skeleton skeleton-tag"></div>
+              <div class="skeleton skeleton-tag"></div>
+            </div>
+            <div class="skeleton skeleton-price"></div>
+          </div>
+        </div>
+
+        <div class="loader-right">
+          <div class="skeleton-card booking-loader">
+            <div class="skeleton skeleton-book-title"></div>
+            <div class="skeleton skeleton-input"></div>
+            <div class="skeleton skeleton-input"></div>
+            <div class="skeleton skeleton-input"></div>
+            <div class="skeleton skeleton-button"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-4">
+    <div class="d-flex justify-content-end mb-3">
+      <a href="./explor.html"><button class="btn-close"></button></a>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-8 col-xl-8">
+        <div class="slider-container shadow-sm mb-3" id="imagesSlider">
+          <div class="slider-wrapper" id="sliderWrapper"></div>
+          <div class="slider-dots" id="sliderDots"></div>
+        </div>
+
+        <div class="info-box shadow-sm p-3">
+          <h3 id="productName" class="fw-bold"></h3>
+          <p id="productDesc"></p>
+
+          <div class="d-flex gap-2 mb-3 flex-wrap">
+            <small class="rating px-2">
+              <i class="fas fa-star"></i> 4.8
+            </small>
+            <small id="productLocation" class="rating px-2"></small>
+            <small class="rating px-2" id="productCAategory"></small>
+          </div>
+
+          <hr />
+
+          <p class="price">
+            EGP <span id="productPrice"></span>
+            <span class="person">/person</span>
+          </p>
+          
+          <h5 class="fw-bold mt-4 mb-2" style="color: #198754;">
+            <i class="fas fa-map-marker-alt"></i> Location Map
+          </h5>
+          <div id="map"></div> 
+        </div>
+
+        <div id="reviewsList"></div>
+        
+        <div class="info-box shadow-sm p-3 mt-3">
+          <div class="review-top" id="starContainer">
+              <h5 class="review-stars pp"> ⭐ Reviews</h5>
+              <div class="review-date">
+                <i class="fa fa-star star" data-value="1"></i>
+                <i class="fa fa-star star" data-value="2"></i>
+                <i class="fa fa-star star" data-value="3"></i>
+                <i class="fa fa-star star" data-value="4"></i>
+                <i class="fa fa-star star" data-value="5"></i>
+              </div>
+          </div>
+          
+          <textarea id="commentText" class="form-control mt-2" placeholder="Write your comment..."></textarea>
+
+          <div class="review-photo-upload mt-2">
+            <label for="reviewPhotoInput" class="review-photo-label">
+              <i class="fa-solid fa-camera"></i> Add a photo from your visit (optional)
+            </label>
+            <input type="file" id="reviewPhotoInput" accept="image/*" class="form-control">
+            <img id="reviewPhotoPreview" class="review-photo-preview" style="display:none;">
+
+            <div class="form-check mt-2">
+              <input type="checkbox" id="shareInGalleryCheck" class="form-check-input">
+              <label for="shareInGalleryCheck" class="form-check-label">
+                Share this photo publicly in the "Discover Egypt" traveler gallery
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-primary mt-2 w-100" onclick="addReview()">Add Review</button>
+          <hr>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-xl-4">
+        <div class="card booking-card shadow-sm p-4">
+          <h5 class="fw-bold mb-3"> Book now </h5>
+          <form onsubmit="return false">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" id="customerNameInput" class="form-control" placeholder="enter your name">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Booking date</label>
+              <input type="date" id="bookingDateInput" class="form-control" onchange="checkStaticDates()">
+              <small id="dateError" class="date-error-msg">⚠️ Reservations are closed today</small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Number of people</label>
+              <select id="bookingPeopleSelect" class="form-select">
+                <option selected>Choose a number</option>
+                <option>One person</option>
+                <option>Two people</option>
+                <option>Three people</option>
+                <option>Four people</option>
+              </select>
+            </div>
+
+            <button type="button" onclick="bookingsucsses()" class="btn btn-success w-100">
+              Booking Now
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <div class="d-flex justify-content-center gap-3 mt-3">
+      <button onclick="prevProduct()" class="btn btn-outline-success">Prev</button>
+      <span id="pageInfo"></span>
+      <button onclick="nextProduct()" class="btn btn-outline-success">Next</button>
+    </div>
+  </div>
+
+  <script>
+    if(localStorage.getItem("isLoggedIn") !== "true"){
+      window.location.href = "./login.html";
+    }
+
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+    let currentIndex = 0;
+    let selected = JSON.parse(localStorage.getItem("selectedProduct"));
+
+    if(!selected){
+      window.location.href = "./explor.html";
+    }
+
+    // بنستخدم id الثابت بتاع المنتج لو موجود (بدل الاعتماد على الاسم)، وده اللي بيتحفظ فعليًا كمرجع للريفيوهات
+    if (selected) {
+      currentIndex = selected.id
+        ? products.findIndex(p => p.id === selected.id)
+        : products.findIndex(p => p.name === selected.name);
+      if (currentIndex === -1) currentIndex = 0;
+    }
+
+    function getCurrentProductId() {
+      let product = products[currentIndex];
+      return product ? product.id : null;
+    }
+
+    let sliderInterval = null;
+    let currentSlideIndex = 0;
+
+    function displayProduct(index) {
+      let product = products[index];
+      if (!product) return;
+
+      // بناء الـ Slider التلقائي
+      buildProductSlider(product);
+
+      document.getElementById("productName").innerText = product.name;
+      document.getElementById("productDesc").innerText = product.desc;
+      document.getElementById("productPrice").innerText = product.price;
+      document.getElementById("productLocation").innerText = product.location;
+      document.getElementById("productCAategory").innerText = product.pCategory;
+
+      localStorage.setItem("selectedProduct", JSON.stringify(product));
+
+      updateButtons();
+      loadReviews(); 
+      
+      if (leafletMapObject !== null) {
+        syncMapWithLocation(product.location, product.name);
+      }
+    }
+
+    function buildProductSlider(product) {
+      const wrapper = document.getElementById("sliderWrapper");
+      const dotsContainer = document.getElementById("sliderDots");
+      
+      wrapper.innerHTML = "";
+      dotsContainer.innerHTML = "";
+      clearInterval(sliderInterval);
+      currentSlideIndex = 0;
+
+      let imagesArray = product.images && product.images.length > 0 ? product.images : [product.image];
+
+      imagesArray.forEach((imgSrc, idx) => {
+        let slide = document.createElement("div");
+        slide.className = "slider-slide";
+        slide.innerHTML = `<img src="${imgSrc}" alt="Product Image ${idx+1}">`;
+        wrapper.appendChild(slide);
+
+        let dot = document.createElement("div");
+        dot.className = `slider-dot ${idx === 0 ? 'active' : ''}`;
+        dot.onclick = () => { goToSlide(idx); };
+        dotsContainer.appendChild(dot);
+      });
+
+      sliderInterval = setInterval(() => {
+        let nextSlide = (currentSlideIndex + 1) % imagesArray.length;
+        goToSlide(nextSlide);
+      }, 3000);
+    }
+
+    function goToSlide(slideIdx) {
+      const wrapper = document.getElementById("sliderWrapper");
+      const dots = document.querySelectorAll(".slider-dot");
+      
+      currentSlideIndex = slideIdx;
+      wrapper.style.transform = `translateX(-${slideIdx * 100}%)`;
+      
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === slideIdx);
+      });
+    }
+
+    // دالة فحص التواريخ المطلوبة استاتيكياً
+    function checkStaticDates() {
+      let dateInput = document.getElementById("bookingDateInput").value;
+      let errorMsg = document.getElementById("dateError");
+
+      if (!dateInput) {
+        errorMsg.style.display = "none";
+        return false;
+      }
+
+      let parts = dateInput.split("-");
+      let year = parseInt(parts[0]);
+      let month = parseInt(parts[1]);
+      let day = parseInt(parts[2]);
+
+      // منع يومي 16/6/2026 و 20/6/2026
+      if (year === 2026 && month === 6 && (day === 16 || day === 20)) {
+        errorMsg.style.display = "block";
+        return true;
+      } else {
+        errorMsg.style.display = "none";
+        return false;
+      }
+    }
+
+    function nextProduct() {
+      if (currentIndex < products.length - 1) {
+        currentIndex++;
+        displayProduct(currentIndex);
+      }
+    }
+
+    function prevProduct() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        displayProduct(currentIndex);
+      }
+    }
+
+    function bookingsucsses() {
+      let name = document.getElementById("customerNameInput").value.trim();
+      let date = document.getElementById("bookingDateInput").value;
+      let people = document.getElementById("bookingPeopleSelect").value;
+
+      if (name === "" || date === "" || people === "Choose a number") {
+        Swal.fire({ title: "Error", text: "Please fill all data first ❗", icon: "error" });
+        return;
+      }
+
+      if (checkStaticDates()) {
+        Swal.fire({ title: "Booking Blocked", text: "الحجز مغلق في هذا اليوم ❌", icon: "error" });
+        return;
+      }
+
+      let product = products[currentIndex];
+      let currentUser = JSON.parse(localStorage.getItem("user"));
+      let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+      bookings.push({
+        id: Date.now(),
+        customerName: name,
+        userEmail: currentUser.email,
+        productName: product.name,
+        location: product.location,
+        price: product.price,
+        bookingDate: date,
+        people: people,
+        status: "pending"
+      });
+
+      localStorage.setItem("bookings", JSON.stringify(bookings));
+      Swal.fire({ title: "Booking", text: "Booking Successful ✅", icon: "success" });
+    }
+
+    function updateButtons() {
+      document.querySelector("button[onclick='prevProduct()']").disabled = currentIndex === 0;
+      document.querySelector("button[onclick='nextProduct()']").disabled = currentIndex === products.length - 1;
+    }
+
+    let selectedRating = 0;
+    document.querySelectorAll(".star").forEach((star, i) => {
+      star.onclick = () => {
+        selectedRating = i + 1;
+        document.querySelectorAll(".star").forEach((s, j) => {
+          s.classList.toggle("active", j < selectedRating);
+        });
+      };
+    });
+
+    // صورة الريفيو (اختيارية) - بتتخزن كـ base64 قبل الإرسال
+    let reviewPhotoBase64 = null;
+
+    document.getElementById("reviewPhotoInput")?.addEventListener("change", function(e) {
+      const file = e.target.files[0];
+      const preview = document.getElementById("reviewPhotoPreview");
+
+      if (!file) {
+        reviewPhotoBase64 = null;
+        if (preview) preview.style.display = "none";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        reviewPhotoBase64 = ev.target.result;
+        if (preview) {
+          preview.src = reviewPhotoBase64;
+          preview.style.display = "block";
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function addReview() {
+      const text = commentText.value.trim();
+      const user = JSON.parse(localStorage.getItem("user"));
+      const productId = getCurrentProductId();
+      const shareInGallery = document.getElementById("shareInGalleryCheck")?.checked || false;
+      
+      if (!text || !selectedRating) {
+        Swal.fire("Fill data", "Rating + comment required", "warning");
+        return;
+      }
+      
+      let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      reviews.push({
+        id: Date.now(),
+        productId: productId,
+        text,
+        rating: selectedRating,
+        date: new Date().toLocaleDateString(),
+        name: user.firstName + " " + user.lastName,
+        email: user.email,
+        avatar: user.firstName[0].toUpperCase(),
+        photo: reviewPhotoBase64,
+        shareInGallery: !!(reviewPhotoBase64 && shareInGallery)
+      });
+      
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+      commentText.value = "";
+      selectedRating = 0;
+      reviewPhotoBase64 = null;
+      const photoInput = document.getElementById("reviewPhotoInput");
+      const preview = document.getElementById("reviewPhotoPreview");
+      if (photoInput) photoInput.value = "";
+      if (preview) preview.style.display = "none";
+      const shareCheck = document.getElementById("shareInGalleryCheck");
+      if (shareCheck) shareCheck.checked = false;
+      document.querySelectorAll(".star").forEach(s => s.classList.remove("active"));
+      loadReviews();
+    }
+
+    function loadReviews() {
+      const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      const box = document.getElementById("reviewsList");
+      const productId = getCurrentProductId();
+      
+      box.innerHTML = reviews
+        .filter(r => r.productId === productId)
+        .map(r => `
+          <div class="review-card">
+            <div class="review-header">
+              <div class="avatar">${r.avatar}</div>
+              <div class="user-info">
+                <div class="name">${r.name}</div>
+                <div class="email">${r.email}</div>
+              </div>
+              <button class="delete-btn" onclick="deleteReview(${r.id})">delete</button>
+            </div>
+            <div class="review-top">
+              <div class="review-stars">${"⭐".repeat(r.rating)}</div>
+              <small class="review-date">${r.date}</small>
+            </div>
+            <div class="review-text">${r.text}</div>
+          </div>
+        `).join("");
+    }
+
+    function deleteReview(id) {
+      let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      reviews = reviews.filter(r => r.id !== id);
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+      loadReviews();
+      Swal.fire({ title: "Deleted", text: "Review deleted successfully 🗑", icon: "success" });
+    }
+
+    loadReviews();
+
+    const ruralMapCoordinates = {
+        "sohag": [26.5592, 31.6957],
+        "fayoum": [29.3084, 30.8428],
+        "siwa": [29.2032, 25.5195],
+        "aswan": [24.0889, 32.8998],
+        "default": [26.8206, 30.8025] 
+    };
+
+    let leafletMapObject = null;   
+    let activeMapMarker = null;    
+
+    function setupRuralMap() {
+        const mapContainer = document.getElementById('map');
+        if (!mapContainer) return;
+
+        if (leafletMapObject !== null) {
+            leafletMapObject.remove();
+        }
+
+        leafletMapObject = L.map('map').setView(ruralMapCoordinates.default, 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(leafletMapObject);
+
+        setTimeout(() => {
+            leafletMapObject.invalidateSize();
+        }, 300);
+    }
+
+    function syncMapWithLocation(locationName, productName) {
+        if (!leafletMapObject) return;
+
+        let searchKey = locationName ? locationName.trim().toLowerCase() : "default";
+        let coords = ruralMapCoordinates[searchKey] || ruralMapCoordinates.default;
+        let zoomLevel = ruralMapCoordinates[searchKey] ? 11 : 6;
+
+        leafletMapObject.setView(coords, zoomLevel);
+        leafletMapObject.invalidateSize();
+
+        if (activeMapMarker) {
+            leafletMapObject.removeLayer(activeMapMarker);
+        }
+
+        activeMapMarker = L.marker(coords).addTo(leafletMapObject)
+            .bindPopup(`<b>${productName}</b><br><i class="fas fa-map-marker-alt"></i> ${locationName}`)
+            .openPopup();
+    }
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const loader = document.getElementById("pageLoader");
+        if(loader) {
+            loader.style.opacity = "0";
+            loader.style.visibility = "hidden";
+        }
+        
+        setupRuralMap();
+        displayProduct(currentIndex);
+
+      }, 1800);
+    });
+  </script>
+
+  <script src="./JavaScript/lang.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./JavaScript/hidden.js"></script>
+</body>
+</html>
