@@ -1,0 +1,122 @@
+body{
+  background: #f6f3ee;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* box */
+.signup-box{
+  width: 100%;
+  max-width: 420px;
+}
+a{
+  text-decoration: none;
+  color: white;
+}
+
+/* title */
+.signup-box h2{
+  font-weight: bold;
+}
+
+.signup-box h2 span{
+  color: #1BAD72;
+}
+
+/* subtitle */
+.subtitle{
+  color: #777;
+  margin-bottom: 20px;
+}
+
+/* toggle */
+.toggle{
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  padding: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+.toggle button{
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.toggle .active{
+  background: linear-gradient(135deg, #1BAD72, #198754);
+  color: #fff;
+}
+
+/* inputs */
+label{
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+input{
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+/* button */
+.main-btn{
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1BAD72, #198754);
+  color: #fff;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.main-btn:hover{
+  opacity: 0.9;
+}
+
+/* login link */
+.login-link{
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-link a{
+  color: #1BAD72;
+  font-weight: bold;
+  text-decoration: none;
+}
+::selection {
+  background: #20c997;
+  color: white;
+}
+
+.dark{
+      background: black;
+    color: white;
+}
+.dark input{
+    background: black;
+    color: white;
+    border: 1px solid #444;
+}
+.dark .toggle{
+  background: black;
+  color: white;
+}
+.dark .toggle button{
+  color: white;
+}
+
